@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portfolio Comparison</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-family: Arial, sans-serif;
+        }
+        #container1, #container2 {
+            background-color: #34495e;
+            border: 1px solid #ecf0f1;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container1" style="width:45%; height:400px; float:left;"></div>
+    <div id="container2" style="width:45%; height:400px; float:left;"></div>
+    <script>
+        // Apply a dark theme to Highcharts
+        Highcharts.setOptions({
+            chart: {
+                backgroundColor: '#34495e',
+                style: {
+                    fontFamily: 'Arial, sans-serif'
+                }
+            },
+            title: {
+                style: {
+                    color: '#ecf0f1',
+                    fontSize: '18px'
+                }
+            },
+            subtitle: {
+                style: {
+                    color: '#bdc3c7'
+                }
+            },
+            xAxis: {
+                labels: {
+                    style: {
+                        color: '#ecf0f1'
+                    }
+                },
+                title: {
+                    style: {
+                        color: '#ecf0f1'
+                    }
+                }
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        color: '#ecf0f1'
+                    }
+                },
+                title: {
+                    style: {
+                        color: '#ecf0f1'
+                    }
+                }
+            },
+            legend: {
+                itemStyle: {
+                    color: '#ecf0f1'
+                },
+                itemHoverStyle: {
+                    color: '#bdc3c7'
+                }
+            },
+            tooltip: {
+                backgroundColor: '#34495e',
+                style: {
+                    color: '#ecf0f1'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        color: '#ecf0f1'
+                    }
+                },
+                series: {
+                    dataLabels: {
+                        color: '#ecf0f1'
+                    }
+                }
+            }
+        });
+
+        // Create the diversified portfolio chart
+        Highcharts.chart('container1', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Diversified Portfolio',
+                align: 'left'
+            },
+            subtitle: {
+                text: 'A diversified portfolio with various assets.',
+                align: 'left'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                },
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                series: {
+                    borderRadius: 5,
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 15,
+                        format: '{point.name}'
+                    }, {
+                        enabled: true,
+                        distance: '-30%',
+                        filter: {
+                            property: 'percentage',
+                            operator: '>',
+                            value: 5
+                        },
+                        format: '{point.y:.1f}%',
+                        style: {
+                            fontSize: '0.9em',
+                            textOutline: 'none'
+                        }
+                    }]
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+            series: [
+                {
+                    name: 'Assets',
+                    colorByPoint: true,
+                    data: [
+                        {
+                            name: 'Stocks',
+                            y: 40,
+                            drilldown: null
+                        },
+                        {
+                            name: 'Bonds',
+                            y: 20,
+                            drilldown: null
+                        },
+                        {
+                            name: 'Real Estate',
+                            y: 15,
+                            drilldown: null
+                        },
+                        {
+                            name: 'Commodities',
+                            y: 10,
+                            drilldown: null
+                        },
+                        {
+                            name: 'Cash',
+                            y: 10,
+                            drilldown: null
+                        },
+                        {
+                            name: 'Cryptocurrencies',
+                            y: 5,
+                            drilldown: null
+                        }
+                    ]
+                }
+            ]
+        });
+
+        // Create the 100% Bitcoin portfolio chart
+        Highcharts.chart('container2', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: '100% Bitcoin Portfolio',
+                align: 'left'
+            },
+            subtitle: {
+                text: 'A portfolio with 100% allocation to Bitcoin.',
+                align: 'left'
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                },
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                series: {
+                    borderRadius: 5,
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 15,
+                        format: '{point.name}'
+                    }, {
+                        enabled: true,
+                        distance: '-30%',
+                        format: '{point.y:.1f}%',
+                        style: {
+                            fontSize: '0.9em',
+                            textOutline: 'none'
+                        }
+                    }]
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            },
+            series: [
+                {
+                    name: 'Assets',
+                    colorByPoint: true,
+                    data: [
+                        {
+                            name: 'Bitcoin',
+                            y: 100,
+                            drilldown: null
+                        }
+                    ]
+                }
+            ]
+        });
+    </script>
+</body>
+</html>
